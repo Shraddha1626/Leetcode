@@ -1,0 +1,79 @@
+/*
+
+121. Best Time to Buy and Sell Stock
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+Example 1:
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+
+Example 2:
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transactions are done and the max profit = 0.
+
+Constraints:
+1 <= prices.length <= 105
+0 <= prices[i] <= 104
+
+*/
+
+/*class Solution {
+    public int maxProfit(int[] prices) {
+        int max=0;
+        int n=prices.length;
+        int i=0;
+        int j=n-1;
+        int count=0;
+        if(i<n/2 ||i<j){
+            while(i<n/2 || i<=j){
+                if(prices[i]>prices[j]){
+                    count++;
+                }
+                else if (max<(prices[j]-prices[i])){
+                    max=prices[j]-prices[i];
+                }
+                i++;
+                j--;
+            }
+            if(count==(n/2)){
+                return 0;
+            }
+        }
+        // if(n%2!=0){
+        //     int k=0;
+        //     int l=k+1;
+        //     while(l<n){
+        //         if(prices[j]>prices[k]){
+        //             if(max<(prices[j]-prices[i])){
+        //                 max=prices[j]-prices[i]; 
+        //             }
+        //         }
+        //     }
+        // }
+        return max;
+    }
+}
+*/
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+
+        for (int price : prices) {
+            if (price < minPrice) {
+                minPrice = price;  // Buy at the lowest price
+            } else if (price - minPrice > maxProfit) {
+                maxProfit = price - minPrice;  // Sell at max profit
+            }
+        }
+
+        return maxProfit;
+    }
+}
